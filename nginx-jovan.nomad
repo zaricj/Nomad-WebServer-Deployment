@@ -33,15 +33,15 @@ job "nginx-jovan-test" {
       mode = "fail"
     }
 
-    task "nginx-jovan" {
+    task "nginx-jovan-test" {
       driver = "docker"
       config {
-        image = "nginx"
+        image = "git-registry.de.geis-group.net/webserver:latest"
         ports =	["http"]
       }
       resources {
-        cpu = 128
-        memory = 64
+        cpu = 384
+        memory = 128
       }
     }
   }
