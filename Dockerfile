@@ -1,6 +1,7 @@
 FROM nginx:latest
 
-RUN sudo apt-get install python3
+RUN apt update
+RUN apt install python3 -y
 
 COPY . /app
 
