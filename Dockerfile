@@ -1,11 +1,6 @@
-FROM nginx:latest
+FROM nginx
 
-RUN apt update
-RUN apt install python3 -y
-RUN apt-get install -y python3 python3-pip
-RUN apt install python3-flask -y
-
-COPY . /app
+COPY /templates/index.html /usr/share/nginx/html
 
 WORKDIR /app
-CMD ["python3","app.py"]
+CMD ["/usr/share/nginx/html","nginx"]
