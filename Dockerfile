@@ -1,9 +1,6 @@
-FROM nginx:latest
+FROM nginx
 
-RUN apt update
-RUN apt install python3 -y
-
-COPY . /app
+COPY /templates/index.html /usr/share/nginx/html
 
 WORKDIR /app
-CMD ["python3","app.py"]
+CMD ["/usr/share/nginx/html","nginx"]

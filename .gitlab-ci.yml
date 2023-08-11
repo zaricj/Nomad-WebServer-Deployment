@@ -1,0 +1,26 @@
+stages:
+  - docker
+  - deploy
+
+build_image:
+  only:
+    - main
+  stage: docker
+  tags:
+    - simonf
+  script:
+    - docker build -t webserver-main .
+    - docker tag webserver-main:latest git-registry.de.geis-group.net/webserver:latest
+    - docker push git-registry.de.geis-group.net/webserver:latest
+
+deploy_docker_image:
+  only:
+    - main
+  stage: deploy
+  tags:
+    - simonf
+  script:
+    - scp nginx-jovan.nomad devdeploy@10.50.2.45:~/nginx-jovan.nomad
+    - ssh devdeploy@10.50.2.45 "nomad job run nginx-jovan.nomad"
+    - ssh devdeploy@10.50.2.45 "rm -fv nginx-jovan.nomad"
+
